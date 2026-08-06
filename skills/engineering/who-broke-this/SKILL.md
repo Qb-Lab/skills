@@ -218,8 +218,20 @@ findings turn on design intent that lives in this conversation, and accept that 
 
 If `questions` is non-empty, stop before another review. Ask the user and wait.
 
-Then merge the round's findings and dispositions into `$RUN/ledger.json`, keyed `R<N>-F<n>`, and
-assert the index survived the round:
+Then merge the round's findings and dispositions into `$RUN/ledger.json`, an object keyed
+`R<N>-F<n>` where each entry carries the finding headline plus its disposition:
+
+```json
+{
+  "R1-F1": {
+    "title": "...", "file": "src/pricing.js", "line": 9,
+    "severity": "major", "category": "correctness",
+    "disposition": "accepted", "note": "one line on what was actually done"
+  }
+}
+```
+
+Assert the index survived the round:
 
 ```bash
 test "$(git diff --cached | git hash-object --stdin)" = "$(cat "$RUN/staged.sha")" || echo "INDEX MUTATED"

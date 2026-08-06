@@ -17,13 +17,13 @@ The user provides a plan, feature description, design doc, architecture sketch, 
 
 1. Decompose the context into **small, independently discussable parts** — each part should be one decision, one component, or one assumption, small enough to settle in a few questions. Aim for 3–8 parts; if you need more, the top-level cut is too fine — group them.
 2. Present the breakdown as a numbered list, one line per part, each with a status marker: `⏳ open`.
-3. Ask the user one question: does this breakdown match how they see it — anything missing, mislabeled, or not worth discussing? Adjust until they agree. The breakdown is the shared map for the rest of the session.
+3. Ask the user one question: does this breakdown match how they see it — anything missing, mislabeled, or not worth discussing? Use the same pickable-answer format as Phase 2 questions (e.g. "looks right", one or two concrete adjustments you'd suggest, plus their own edit). Adjust until they agree. The breakdown is the shared map for the rest of the session.
 
 ## Phase 2 — Align on each part
 
 Work through the parts in order (or the order the user prefers). For the current part:
 
-1. **One question per turn.** Ask exactly one question, then stop and wait. Never batch questions. With each question, offer your **recommended answer** and the one-line reason — the user can accept it with a word or push back, which is faster than answering from scratch.
+1. **One question per turn, with pickable answers.** Ask exactly one question, then stop and wait. Never batch questions. With each question, offer 2–4 concrete candidate answers — your recommendation first and marked as such, each with a one-line reason. If the host has a structured multiple-choice prompt (selectable options with a built-in free-text "other"), ask through it; otherwise present the candidates as a lettered list and close by inviting the user's own answer. Picking a candidate must always be a complete, sufficient answer — never a label that needs elaboration.
 2. **Ask what matters.** Questions target two things: *what is this, really?* (scope, purpose, who it's for) and *how should it be built?* (approach, data, edge cases, dependencies on other parts). Skip anything the user could answer without thinking. If a question can be answered by exploring the codebase, explore the codebase instead of asking — facts you can look up are never questions for the user; decisions are.
 3. **Follow the vague answer.** If an answer is hedged or hand-wavy, the next question digs into the same spot. Don't move on until the answer is concrete or the user explicitly parks it as an open problem.
 4. **Say your understanding back.** When you think the part is settled, restate it in 2–3 sentences — what it is and how it will be built — and ask the user to confirm or correct. The part is **aligned** only when they confirm.

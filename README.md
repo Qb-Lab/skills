@@ -61,7 +61,8 @@ Requires the [Codex CLI](https://github.com/openai/codex): `npm install -g @open
 
 Bring something big or fuzzy — a plan, a feature, a pile of context. It breaks it into small
 parts, then works through them one at a time with sharp, single questions — what is this part
-really, and how should it be built — each with a recommended answer, digging into every vague
+really, and how should it be built — each with pickable suggested answers (recommendation
+marked, your own answer always an option), digging into every vague
 answer until you both confirm the same understanding. Questions it can answer from the codebase
 it answers itself. Once a part is aligned it may offer one concrete improvement idea. Ends with
 an alignment summary concrete enough to hand to a fresh agent session.
