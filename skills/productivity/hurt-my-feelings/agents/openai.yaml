@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hurt My Feelings"
+  short_description: "Break context into parts and align through questioning"
+  default_prompt: "Use $hurt-my-feelings to break this down and align on it part by part."
+
+policy:
+  allow_implicit_invocation: false

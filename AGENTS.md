@@ -1,30 +1,117 @@
 # QBLab Skills — repo guide for agents
 
-This repo is a catalog of agent skills installable with `npx skills add qb-lab/skills`. It contains no application code — every deliverable is a skill folder.
+Public catalog of agent skills maintained by QBLab, installable with
+`npx skills add qb-lab/skills`. Skills are portable instruction sets that any coding agent
+(Claude Code, Codex, Cursor, OpenCode, and ~70 others) can install with the `skills` CLI.
+
+This repo is **content, not code**. There is no build step, no dependencies, and nothing to
+compile. A skill is a directory containing a `SKILL.md`.
+
+Everything here is public. Never commit client names, credentials, internal URLs, or anything
+under NDA — assume every file is read by strangers.
 
 ## Layout
 
+Catalog layout — the CLI walks two levels deep under `skills/`:
+
 ```
-<category>/<skill-name>/
-├── SKILL.md            # required: YAML frontmatter (name, description) + instructions
-├── agents/openai.yaml  # optional: profile for delegating part of the skill to Codex
-├── references/         # optional: prompts, schemas, docs the skill loads on demand
-└── scripts/            # optional: helper scripts the skill runs
+skills/
+└── <category>/
+    └── <skill-name>/
+        ├── SKILL.md          # required — the skill itself
+        ├── agents/           # optional — host-specific metadata (e.g. openai.yaml for Codex)
+        ├── references/       # optional — docs and profiles the skill tells the agent to read
+        └── scripts/          # optional — executable helpers
 ```
 
-Current categories: `engineering/`, `productivity/`. The skills CLI discovers `SKILL.md` files up to three levels deep from the repo root, so `<category>/<skill>/SKILL.md` is the canonical depth — don't nest deeper.
+`agents/openai.yaml` is Codex **host metadata** (interface strings, invocation policy) — the
+Codex host reads it, not the skill. Config the skill itself consumes (reviewer profiles, prompts,
+schemas) lives in `references/`.
 
-## Conventions
+## Categories
 
-- Skill folder names are kebab-case and match the `name:` field in frontmatter.
-- `description:` must say both what the skill does and when to use it — installers and agents pick skills by this line alone.
-- Paths inside a SKILL.md are relative to the skill's own folder (skills are copied into each agent's install location, so absolute or repo-rooted paths break).
-- Skills that shell out to external CLIs (`codex`, etc.) must check availability first and degrade gracefully with a fallback.
-- Skills review and report; they don't stage, commit, or push unless that is their explicit purpose.
-- Scripts must be POSIX-ish bash, `set -euo pipefail`, executable bit set.
+Use these broad capability categories:
 
-## Adding a skill
+- `engineering` — frontend, backend, mobile, infrastructure, testing, and architecture
+- `design` — UI/UX, design systems, accessibility, and design-tool workflows
+- `productivity` — research, writing, planning, communication, and general agent workflows
 
-1. Create `<category>/<new-skill>/SKILL.md` (pick an existing category unless a new one is clearly needed).
-2. Keep SKILL.md lean; push long prompts/schemas into `references/`.
-3. Add the skill to the table in `README.md`.
+Create a category directory when its first skill lands; don't add empty directories. Avoid
+narrower stack-based categories such as `frontend` or `backend`.
+
+## House-stack awareness
+
+QBLab skills are stack-aware: when the target repo is an Nx monorepo (NestJS, code-first
+GraphQL/REST, Prisma or Drizzle on PostgreSQL/MongoDB, Next.js + Tailwind + shadcn/ui) or a
+React Native Expo app, they load bundled house-stack references — phase-cutting rules,
+stack-specific bug classes, and probe questions. On any other repo they fall back to generic
+behavior. Detection is by marker files (`nx.json` + `prisma/` or `prisma.config.ts`;
+`app.config.ts` + `expo` in package.json), never by assumption. New skills that could benefit
+from stack context should follow the same pattern: generic by default, house-stack reference
+loaded only when the markers match.
+
+## Authoring a skill
+
+Scaffold with `npx skills init <name>`, then move it under the right category.
+
+`SKILL.md` frontmatter:
+
+```yaml
+---
+name: my-skill              # required — lowercase, hyphens, matches the directory name
+description: >              # required — what it does AND when to use it
+  Use when ...
+---
+```
+
+For implicitly invocable skills, the `description` is the primary information an agent sees
+before deciding whether to load the skill. Write it as a trigger, not a summary: lead with
+"Use when ..." and name the concrete signals (file types, library names, error messages,
+phrases the user would say). A description that just restates the title gets the skill ignored.
+
+### Manual-only skills
+
+Use manual-only invocation when a workflow should run only after the user explicitly selects
+it. Support Claude Code and Codex as a pair:
+
+1. Add `disable-model-invocation: true` to `SKILL.md` frontmatter. Claude Code and Cursor then
+   expose the skill as `/<skill-name>` without loading it automatically.
+2. Add `agents/openai.yaml` with:
+
+   ```yaml
+   policy:
+     allow_implicit_invocation: false
+   ```
+
+   Codex then exposes the skill through `$<skill-name>` and `/skills` without invoking it
+   implicitly.
+
+Keep the base `name` and `description` valid for the Agent Skills specification so other agents
+can still install the skill. Host-specific invocation controls may be ignored by other agents.
+Don't set `user-invocable: false`; that hides the skill from user-facing invocation instead.
+
+### Body conventions
+
+- Write instructions to the agent in the imperative. No marketing, no "this skill will".
+- Be prescriptive. A skill exists to encode a decision already made — state the decision and
+  the reason, don't survey the options.
+- Keep the body short enough to stay useful in context. Push long reference material into
+  `references/` and tell the agent when to read it.
+- Paths inside a SKILL.md are relative to the skill's own folder. Hosts install skills in
+  different locations, so never hard-code `.claude/skills`, `.agents/skills`, or a user-level
+  skill directory — resolve the directory containing the loaded `SKILL.md` at runtime when a
+  script or reference must be executed by path.
+- Skills that shell out to external CLIs (`codex`, etc.) must check availability first and
+  degrade gracefully with a fallback.
+- Skills review and report; they don't stage, commit, or push unless that is their explicit
+  purpose.
+- Scripts must be POSIX-ish bash, `set -euo pipefail`, executable bit set. Scripts that keep
+  state must scope it to a per-run directory, never a shared global path.
+- Prefer one skill that does one thing well over a kitchen-sink skill.
+
+## Working on this repo
+
+- Test a skill before committing: `npx skills add . --skill <name>` from a scratch project,
+  then drive the agent through the workflow the skill claims to handle.
+- Renaming a skill directory breaks everyone's install. Treat names as an API.
+- Keep the skill table in `README.md` in sync when adding or removing a skill.

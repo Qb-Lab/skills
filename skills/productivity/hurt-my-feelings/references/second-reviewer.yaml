@@ -1,0 +1,17 @@
+# Optional second-reviewer profile for hurt-my-feelings, read by the invoking
+# agent when the `codex` CLI is installed: an OpenAI model reads the breakdown
+# plus the Q&A transcript and surfaces alignment gaps or improvement ideas the
+# first reviewer missed. Lives in references/ because agents/openai.yaml is
+# reserved for Codex host metadata.
+provider: openai
+cli: codex
+model: gpt-5
+reasoning_effort: high
+sandbox: read-only
+role: >
+  You are a second reviewer. You receive a breakdown of a plan into parts and a
+  transcript of questions already asked and answered. Contribute only items that
+  were not already covered: (a) questions where the two sides may still be
+  misaligned or an answer stayed vague, and (b) concrete improvement ideas for a
+  specific part. Output a ranked list of at most 5 items, most important first,
+  each tagged [gap] or [idea] and naming the part it applies to.

@@ -1,8 +1,14 @@
-# CLAUDE.md
+@AGENTS.md
 
-See [AGENTS.md](AGENTS.md) for the repo layout and skill-authoring conventions — everything there applies to Claude Code too.
+## Claude Code specifics
 
-Claude-specific notes:
-
-- When editing a SKILL.md, keep the frontmatter to `name` and `description`; this repo targets the cross-agent `npx skills` format, so don't add Claude-plugin-only fields (`context:`, `allowed-tools:`, etc.) without discussing it first.
-- To test a skill locally without installing: read the SKILL.md and follow it directly in a scratch repo.
+- Installs land in `.claude/skills/` (project) or `~/.claude/skills/` (global):
+  `npx skills add qb-lab/skills -a claude-code`.
+- Skills in this repo must not assume Claude Code. They run under Codex, Cursor, and OpenCode
+  too — no `.claude/` paths, no Claude-only tool names, no slash commands in the instructions
+  unless the skill is explicitly Claude-scoped and says so in its description.
+- Frontmatter stays within the cross-agent Agent Skills spec: `name`, `description`, plus the
+  invocation fields documented in AGENTS.md (`disable-model-invocation`, `argument-hint`).
+  Don't add other host-only fields without discussing it first.
+- To test a skill locally without installing: read the SKILL.md and follow it directly in a
+  scratch repo.

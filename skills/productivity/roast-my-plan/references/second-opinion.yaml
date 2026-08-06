@@ -1,6 +1,6 @@
-# Optional second-opinion profile for roast-my-plan.
-# If the `codex` CLI is installed, the skill may offer to run the finished
-# plan past an OpenAI model for an independent critique before delivering it.
+# Optional second-opinion reviewer profile for roast-my-plan, read by the
+# invoking agent when the `codex` CLI is installed. Lives in references/
+# because agents/openai.yaml is reserved for Codex host metadata.
 provider: openai
 cli: codex
 model: gpt-5

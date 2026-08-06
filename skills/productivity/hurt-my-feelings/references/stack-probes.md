@@ -1,6 +1,6 @@
 # House-stack probe bank
 
-Extra ammunition for when the plan under interrogation targets the house stack (Nx monorepo + NestJS + GraphQL + Prisma + Next.js, with separate Expo mobile repos). Same rules apply: one question at a time, only ask what could kill the plan, adapt wording to the actual answer trail.
+Extra questions for when the context under discussion targets the house stack (Nx monorepo + NestJS + GraphQL + Prisma + Next.js, with separate Expo mobile repos). Same rules apply: one question at a time, only ask what genuinely affects how a part gets built, adapt wording to the actual answer trail.
 
 ## Monorepo boundaries
 
