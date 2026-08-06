@@ -29,6 +29,10 @@ Rules of thumb:
 - Each phase leaves the repo in a working, committable state (builds, tests green)
 - Later phases must not require remembering *why* earlier phases did something — write that context into the plan itself
 
+## Stack awareness
+
+If the target repo is an Nx monorepo with Prisma (`nx.json` at root plus a `prisma/` dir or `prisma.config.ts`), or a standalone Expo app (`app.config.ts` + `expo` in package.json), read `references/stack-playbook.md` (relative to this skill's folder) before cutting phases — it defines where phase boundaries are allowed to fall in that stack and which verification commands count.
+
 ## Process
 
 1. Understand the goal. Explore the codebase if one is present; ask only questions that change the plan's shape.

@@ -24,6 +24,7 @@ The user provides a plan, design doc, architecture sketch, or proposal — as te
    - Scale and time: what happens at 10x? In a year? When the author leaves?
    - Alternatives: why this and not the obvious simpler thing?
 6. **Track the score.** Keep a private tally of: assumptions surfaced, open problems admitted, answers that were genuinely solid.
+7. **Know the terrain.** If the plan targets an Nx monorepo with Prisma or an Expo app, read `references/stack-probes.md` (relative to this skill's folder) — it holds stack-specific kill-questions (migration rollback, old mobile builds against a changed schema, OTA vs native releases) that generic questioning misses.
 
 ## Ending
 

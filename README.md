@@ -2,6 +2,8 @@
 
 Agent skills for planning, reviewing, and stress-testing your work. Works with Claude Code, Codex, Cursor, and any agent supported by [`npx skills`](https://skills.sh).
 
+The skills are stack-aware: when the target repo is an Nx monorepo (NestJS, code-first GraphQL/REST, Prisma or Drizzle on PostgreSQL/MongoDB, Next.js + Tailwind + shadcn/ui) or a React Native Expo app, they load bundled house-stack references — phase-cutting rules, stack-specific bug classes, and kill-questions. On any other repo they fall back to generic behavior.
+
 ## Install
 
 ```bash

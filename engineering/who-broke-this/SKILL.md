@@ -11,6 +11,7 @@ Bundled resources (paths relative to this skill's folder):
 
 - `agents/openai.yaml` — the Codex reviewer profile (model, effort, prompt/schema paths, `max_rounds`)
 - `references/review-prompt.md` — the review prompt handed to Codex
+- `references/stack-bug-classes.md` — house-stack breakage patterns; append to the prompt when the repo matches
 - `references/findings.schema.json` — the JSON shape Codex must return findings in
 - `scripts/round-budget.sh` — enforces the review-round budget
 
@@ -31,11 +32,15 @@ bash scripts/round-budget.sh start <max_rounds>
 
 ## Step 1 — Review staged changes with Codex
 
+First check the stack: if the repo is an Nx monorepo with Prisma (`nx.json` + `prisma/` or `prisma.config.ts`) or an Expo app (`app.config.ts` + `expo` dependency), include `references/stack-bug-classes.md` in the prompt; otherwise omit it.
+
 Capture the staged diff and hand it to Codex, using the bundled prompt and schema:
 
 ```bash
 git diff --staged > "${TMPDIR:-/tmp}/staged.diff"
 codex exec "$(cat references/review-prompt.md)
+
+$(cat references/stack-bug-classes.md)   # only when the stack matches
 
 Schema for your JSON output:
 $(cat references/findings.schema.json)
@@ -63,6 +68,8 @@ For each **confirmed** finding, determine:
 - **Fixed** — an unstaged change addresses it (name the file/lines)
 - **Partially fixed** — unstaged change touches it but doesn't fully resolve it
 - **Unfixed** — nothing unstaged addresses it
+
+In an Nx repo, back the verdicts with the mechanical gate: `nx affected -t typecheck build` (the same check CI runs). A "fixed" that doesn't typecheck isn't fixed.
 
 Also flag unstaged changes that address *nothing* from the review — the user should know what that code is for before it gets staged.
 
