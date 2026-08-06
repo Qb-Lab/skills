@@ -1,6 +1,6 @@
 # QBLab Skills — repo guide for agents
 
-This repo is a catalog of agent skills installable with `npx skills add qblab/skills`. It contains no application code — every deliverable is a skill folder.
+This repo is a catalog of agent skills installable with `npx skills add qb-lab/skills`. It contains no application code — every deliverable is a skill folder.
 
 ## Layout
 

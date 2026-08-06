@@ -7,9 +7,9 @@ The skills are stack-aware: when the target repo is an Nx monorepo (NestJS, code
 ## Install
 
 ```bash
-npx skills add qblab/skills            # pick skills interactively
-npx skills add qblab/skills --all      # install all three
-npx skills add qblab/skills --skill who-broke-this
+npx skills add qb-lab/skills            # pick skills interactively
+npx skills add qb-lab/skills --all      # install all three
+npx skills add qb-lab/skills --skill who-broke-this
 ```
 
 ## Skills
