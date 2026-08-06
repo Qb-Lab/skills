@@ -1,0 +1,13 @@
+# Optional second-opinion profile for roast-my-plan.
+# If the `codex` CLI is installed, the skill may offer to run the finished
+# plan past an OpenAI model for an independent critique before delivering it.
+provider: openai
+cli: codex
+model: gpt-5
+reasoning_effort: medium
+sandbox: read-only
+role: >
+  You are critiquing a phased implementation plan. For each phase judge:
+  (1) could a fresh coding agent execute it from the written context alone,
+  (2) is "done when" mechanically verifiable, (3) is the phase small enough
+  for one session. Report only phases that fail one of these, and why.

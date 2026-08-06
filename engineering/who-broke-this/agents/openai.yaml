@@ -1,0 +1,11 @@
+# Codex reviewer profile for who-broke-this.
+# Read by the skill when invoking `codex exec` — this file is configuration
+# for the invoking agent, not something Codex loads on its own.
+provider: openai
+cli: codex
+model: gpt-5-codex
+reasoning_effort: high
+sandbox: read-only
+prompt: ../references/review-prompt.md
+output_schema: ../references/findings.schema.json
+max_rounds: 3

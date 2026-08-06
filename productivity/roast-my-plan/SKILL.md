@@ -36,6 +36,7 @@ Rules of thumb:
 3. Cut phases along verification boundaries, not along file or layer boundaries.
 4. Write the plan using the output format below.
 5. End with a one-paragraph roast summary: the single biggest risk in this plan and which phase will hurt most.
+6. Optional second opinion: if the `codex` CLI is installed, offer to run the finished plan past the reviewer profile in `agents/openai.yaml` (relative to this skill's folder) and fold any confirmed critique back into the plan before delivering.
 
 ## Output format
 

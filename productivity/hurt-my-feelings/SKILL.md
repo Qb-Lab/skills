@@ -32,6 +32,8 @@ Stop when one of these happens:
 - Three consecutive answers are genuinely solid with nothing left to probe
 - The plan has taken a wound the user agrees is fatal and needs a redesign
 
+Before the debrief, optionally bring in a second interrogator: if the `codex` CLI is installed, offer to run the plan plus the Q&A transcript through the profile in `agents/openai.yaml` (relative to this skill's folder) and ask any killer questions it surfaces that you missed — still one at a time.
+
 Then deliver the debrief:
 
 ```markdown
