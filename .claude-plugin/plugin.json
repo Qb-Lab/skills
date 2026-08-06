@@ -1,0 +1,12 @@
+{
+  "name": "qblab",
+  "description": "QBLab skills: phased planning, staged-change review, and adversarial design stress-testing",
+  "version": "0.1.0",
+  "author": {
+    "name": "QBLab"
+  },
+  "homepage": "https://github.com/qblab/skills",
+  "repository": "https://github.com/qblab/skills",
+  "license": "MIT",
+  "keywords": ["planning", "code-review", "design-review", "productivity"]
+}
