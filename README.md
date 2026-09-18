@@ -36,6 +36,9 @@ home directory instead. `npx skills update` pulls the latest versions.
 | [hurt-my-feelings](./skills/productivity/hurt-my-feelings/SKILL.md) | Productivity | Breaks complex context into small parts and aligns on each through one-at-a-time questioning. | Claude Code/Cursor: `/hurt-my-feelings`; Codex: `$hurt-my-feelings` |
 | [qblab-context](./skills/growth/qblab-context/SKILL.md) | Growth | QBLab's positioning, offers, ideal client, proof and voice, loaded before any client-facing work. | Loads automatically when the task speaks as QBLab; Codex: `$qblab-context` |
 | [pre-call-brief](./skills/growth/pre-call-brief/SKILL.md) | Growth | One-page brief before a discovery call: who the lead is, fit, scope and plan hypothesis, quote range, questions to ask. | Claude Code/Cursor: `/pre-call-brief`; Codex: `$pre-call-brief` |
+| [proposal](./skills/growth/proposal/SKILL.md) | Growth | Fixed-scope proposal from call notes: goal in the client's words, testable scope table, exclusions, timeline, one price, ownership, next step. | Claude Code/Cursor: `/proposal`; Codex: `$proposal` |
+| [case-study](./skills/growth/case-study/SKILL.md) | Growth | Case-study entry in qblab.co's exact shape, mined from the repo and live URL, with one batch of owner questions for the rest. | Claude Code/Cursor: `/case-study`; Codex: `$case-study` |
+| [linkedin-post](./skills/growth/linkedin-post/SKILL.md) | Growth | Three LinkedIn post variants from a case study, a commit range, a topic, or the week's work, with a posting log. | Claude Code/Cursor: `/linkedin-post`; Codex: `$linkedin-post` |
 
 The engineering and productivity skills are manual-only: they run when you invoke them, never
 implicitly. `qblab-context` is the exception — it is a context pack the other growth skills
@@ -90,6 +93,32 @@ profile, proposes a scope size and which plan to lead with, pulls a quote range 
 private overlay, and lists the five to eight questions that actually change the estimate.
 The brief is saved under `~/.qblab/leads/` and printed. It never contacts the lead.
 
+### proposal
+
+Hand it the call notes or transcript (it also picks up the matching pre-call brief). It writes
+the document that follows the 30-minute call: the client's goal in their words, a scope table
+where every line is testable, explicit exclusions, the four-week timeline or the subscription
+request flow, one fixed price with terms from your overlay, assumptions, what you need from the
+client, the ownership paragraph, and a single next step. Saved under `~/.qblab/leads/`; if your
+agent can draft email it also prepares a cover note as a draft. Never sends.
+
+### case-study
+
+Point it at a shipped product's repository or live URL. It mines what can be checked (stack
+from manifests, features from routes and screens, dates from commits, what the live site shows),
+asks you one batch of questions for the rest, and writes the entry in the exact shape qblab.co
+renders, plus a 150-word narrative. Inside the qblab.co repo it edits `content/work.ts` in
+place; elsewhere it saves under `~/.qblab/case-studies/`. Unknown fields stay `INPUT_NEEDED`;
+it never invents an outcome, and it withholds client names not cleared in your overlay.
+
+### linkedin-post
+
+Give it a case study, a commit range that shipped, a topic, or `weekly`. It writes three
+variants from the same evidence — a build log with elapsed days from commit dates, a lesson, and
+a founder question — each with a hook, a suggested visual and a posting slot, then logs the
+draft under `~/.qblab/posts/` so later runs never repeat a source. `weekly` also gives a
+two-week plan of post ideas. It drafts; you post.
+
 ## Repo structure
 
 ```
@@ -105,10 +134,22 @@ skills/
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/           # positioning, offers, icp, proof, voice, overlay template
-│   └── pre-call-brief/
+│   ├── pre-call-brief/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # research checklist, brief template
+│   ├── proposal/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # proposal template, cover email
+│   ├── case-study/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # entry shape, intake questions
+│   └── linkedin-post/
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
-│       └── references/           # research checklist, brief template
+│       └── references/           # post patterns
 └── productivity/
     ├── roast-my-plan/
     │   ├── SKILL.md

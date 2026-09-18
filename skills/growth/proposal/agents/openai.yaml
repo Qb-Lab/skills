@@ -1,0 +1,7 @@
+interface:
+  display_name: "Proposal"
+  short_description: "Fixed-scope QBLab proposal from call notes"
+  default_prompt: "Use $proposal to turn these call notes into a proposal."
+
+policy:
+  allow_implicit_invocation: false

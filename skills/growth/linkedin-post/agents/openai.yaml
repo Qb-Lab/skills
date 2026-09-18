@@ -1,0 +1,7 @@
+interface:
+  display_name: "LinkedIn Post"
+  short_description: "Draft LinkedIn posts from shipped work"
+  default_prompt: "Use $linkedin-post to draft this week's LinkedIn post."
+
+policy:
+  allow_implicit_invocation: false
