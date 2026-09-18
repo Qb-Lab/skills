@@ -1,0 +1,7 @@
+interface:
+  display_name: "SEO Audit"
+  short_description: "Audit qblab.co for search and answer-engine readiness"
+  default_prompt: "Use $seo-audit on this site."
+
+policy:
+  allow_implicit_invocation: false
