@@ -1,0 +1,7 @@
+interface:
+  display_name: "Pre-call Brief"
+  short_description: "One-page brief before a QBLab discovery call"
+  default_prompt: "Use $pre-call-brief to prepare me for my next discovery call."
+
+policy:
+  allow_implicit_invocation: false

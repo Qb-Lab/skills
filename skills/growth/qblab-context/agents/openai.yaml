@@ -1,0 +1,4 @@
+interface:
+  display_name: "QBLab Context"
+  short_description: "Load QBLab's positioning, offers, proof and voice"
+  default_prompt: "Use $qblab-context before writing anything that speaks as QBLab."

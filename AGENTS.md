@@ -35,6 +35,8 @@ Use these broad capability categories:
 - `engineering` — frontend, backend, mobile, infrastructure, testing, and architecture
 - `design` — UI/UX, design systems, accessibility, and design-tool workflows
 - `productivity` — research, writing, planning, communication, and general agent workflows
+- `growth` — running the agency: positioning, sales, marketing, content, and client-facing
+  workflows (briefs, proposals, outreach, posts, SEO)
 
 Create a category directory when its first skill lands; don't add empty directories. Avoid
 narrower stack-based categories such as `frontend` or `backend`.
@@ -49,6 +51,20 @@ behavior. Detection is by marker files (`nx.json` + `prisma/` or `prisma.config.
 `app.config.ts` + `expo` in package.json), never by assumption. New skills that could benefit
 from stack context should follow the same pattern: generic by default, house-stack reference
 loaded only when the markers match.
+
+## Growth skills and the private overlay
+
+Growth skills speak as QBLab, so they all start by loading the `qblab-context` skill, which
+holds only what is already public on qblab.co. Anything private — pricing, capacity, NDA
+clients, the owner's contact details, pipeline notes — lives in a **private overlay** at
+`~/.qblab/context.local.md` on the owner's machine (template in
+`skills/growth/qblab-context/references/private-overlay.template.md`). Skills read the
+overlay when it exists and mark the gap as `INPUT_NEEDED: <what>` when it does not; they
+never guess a price or a client name. Lead briefs and proposals are saved under `~/.qblab/`
+as well, never in a repository.
+
+New growth skills follow the same shape: load `qblab-context`, read the overlay, produce a
+draft or a report, never send, post, or contact anyone.
 
 ## Authoring a skill
 
