@@ -1,0 +1,7 @@
+interface:
+  display_name: "Blog Post"
+  short_description: "Write a qblab.co blog post as MDX"
+  default_prompt: "Use $blog-post to write this post."
+
+policy:
+  allow_implicit_invocation: false

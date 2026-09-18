@@ -42,6 +42,8 @@ home directory instead. `npx skills update` pulls the latest versions.
 | [outreach](./skills/growth/outreach/SKILL.md) | Growth | Researches a target list in a niche and drafts a personalised three-message sequence per target, tracked in a local pipeline file. | Claude Code/Cursor: `/outreach`; Codex: `$outreach` |
 | [client-followup](./skills/growth/client-followup/SKILL.md) | Growth | Post-launch check-in drafts that ask a client for a testimonial and a referral, with a forwardable intro. | Claude Code/Cursor: `/client-followup`; Codex: `$client-followup` |
 | [growth-brief](./skills/growth/growth-brief/SKILL.md) | Growth | Weekly one-page brief: site funnel, pipeline, activity, stale items, and the single action for the week. | Claude Code/Cursor: `/growth-brief`; Codex: `$growth-brief` |
+| [seo-audit](./skills/growth/seo-audit/SKILL.md) | Growth | Checks the site's SEO plumbing, performance budget, and copy against the searches founders make; ranked fix list and page ideas. | Claude Code/Cursor: `/seo-audit`; Codex: `$seo-audit` |
+| [blog-post](./skills/growth/blog-post/SKILL.md) | Growth | Writes a qblab.co blog post as MDX the site renders, anchored in real work, from an audit idea or a topic. | Claude Code/Cursor: `/blog-post`; Codex: `$blog-post` |
 
 The engineering and productivity skills are manual-only: they run when you invoke them, never
 implicitly. `qblab-context` is the exception — it is a context pack the other growth skills
@@ -148,6 +150,23 @@ skills write, and produces one page: funnel this week versus last, pipeline by s
 per channel, stale items with dates, whether last week's action happened, and the one action for
 this week. Saved under `~/.qblab/briefs/`.
 
+### seo-audit
+
+Point it at the site repo, the live URL, or both. It runs the mechanical checks first
+(canonicals, title template, sitemap and robots, JSON-LD, Open Graph images, `llms.txt`,
+placeholder leaks, the blog gate, the Lighthouse budget), then spends its effort on whether each
+section and case study answers the searches founders actually make, using a bundled query map.
+Output is a ranked fix list with files and a table of page and post ideas with working titles.
+It never adds the location to headings or proposes keyword stuffing.
+
+### blog-post
+
+Give it a working title from an audit, a query family, or a topic. It insists on one real anchor
+(a shipped product, a real decision, a number QBLab can stand behind), then writes 700 to 1,200
+words in QBLab's voice with the answer in the first paragraph, and saves an MDX file with the
+exact frontmatter the blog route reads. Inside the site repo it writes to `content/blog/` and
+runs the build; it never flips the blog gate.
+
 ## Repo structure
 
 ```
@@ -187,10 +206,18 @@ skills/
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/           # clients template, message templates
-│   └── growth-brief/
+│   ├── growth-brief/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # site events, brief template
+│   ├── seo-audit/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # site checks, query map, report template
+│   └── blog-post/
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
-│       └── references/           # site events, brief template
+│       └── references/           # post shape
 └── productivity/
     ├── roast-my-plan/
     │   ├── SKILL.md
