@@ -1,0 +1,7 @@
+interface:
+  display_name: "Client Follow-up"
+  short_description: "Post-launch check-in with testimonial and referral ask"
+  default_prompt: "Use $client-followup to draft check-ins for clients who are due."
+
+policy:
+  allow_implicit_invocation: false
