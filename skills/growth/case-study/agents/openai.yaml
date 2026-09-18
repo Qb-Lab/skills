@@ -1,0 +1,7 @@
+interface:
+  display_name: "Case Study"
+  short_description: "Draft a qblab.co case study from a repo or URL"
+  default_prompt: "Use $case-study to write the case study for this product."
+
+policy:
+  allow_implicit_invocation: false
