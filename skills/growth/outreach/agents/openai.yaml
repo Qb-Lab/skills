@@ -1,0 +1,7 @@
+interface:
+  display_name: "Outreach"
+  short_description: "Research targets and draft personalised outreach"
+  default_prompt: "Use $outreach to research this niche and draft first messages."
+
+policy:
+  allow_implicit_invocation: false

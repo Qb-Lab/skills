@@ -39,6 +39,9 @@ home directory instead. `npx skills update` pulls the latest versions.
 | [proposal](./skills/growth/proposal/SKILL.md) | Growth | Fixed-scope proposal from call notes: goal in the client's words, testable scope table, exclusions, timeline, one price, ownership, next step. | Claude Code/Cursor: `/proposal`; Codex: `$proposal` |
 | [case-study](./skills/growth/case-study/SKILL.md) | Growth | Case-study entry in qblab.co's exact shape, mined from the repo and live URL, with one batch of owner questions for the rest. | Claude Code/Cursor: `/case-study`; Codex: `$case-study` |
 | [linkedin-post](./skills/growth/linkedin-post/SKILL.md) | Growth | Three LinkedIn post variants from a case study, a commit range, a topic, or the week's work, with a posting log. | Claude Code/Cursor: `/linkedin-post`; Codex: `$linkedin-post` |
+| [outreach](./skills/growth/outreach/SKILL.md) | Growth | Researches a target list in a niche and drafts a personalised three-message sequence per target, tracked in a local pipeline file. | Claude Code/Cursor: `/outreach`; Codex: `$outreach` |
+| [client-followup](./skills/growth/client-followup/SKILL.md) | Growth | Post-launch check-in drafts that ask a client for a testimonial and a referral, with a forwardable intro. | Claude Code/Cursor: `/client-followup`; Codex: `$client-followup` |
+| [growth-brief](./skills/growth/growth-brief/SKILL.md) | Growth | Weekly one-page brief: site funnel, pipeline, activity, stale items, and the single action for the week. | Claude Code/Cursor: `/growth-brief`; Codex: `$growth-brief` |
 
 The engineering and productivity skills are manual-only: they run when you invoke them, never
 implicitly. `qblab-context` is the exception — it is a context pack the other growth skills
@@ -119,6 +122,32 @@ a founder question — each with a hook, a suggested visual and a posting slot, 
 draft under `~/.qblab/posts/` so later runs never repeat a source. `weekly` also gives a
 two-week plan of post ideas. It drafts; you post.
 
+### outreach
+
+Give it a niche or a list of companies. It builds a target list from QBLab's fit signals
+(dropping anyone in your avoid list or already in the pipeline), researches each target for one
+specific observation, and writes a first message plus day-4 and day-10 follow-ups where the
+first sentence is always about them. Sequences are saved under `~/.qblab/outreach/`, the first
+email becomes a draft when your agent can draft mail, and every target gets a row in
+`pipeline.csv`. Nothing is ever sent.
+
+### client-followup
+
+For a named client or everyone who is `due` (30 days after launch, then quarterly for
+subscriptions). It looks at the live product for one true observation, then drafts the check-in
+with the testimonial ask (three questions that make it easy to answer) and a one-sentence
+referral ask, a thank-you reply that turns their answer into a publishable quote, and a
+three-line intro they can forward. Clients live in `~/.qblab/clients.md`; NDA clients are never
+asked for a public quote.
+
+### growth-brief
+
+Run it on Monday. It pulls the site funnel from Mixpanel when your agent has access (visitors,
+CTA clicks by location, calendar opened, booked, confirmed), reads every file the other growth
+skills write, and produces one page: funnel this week versus last, pipeline by stage, activity
+per channel, stale items with dates, whether last week's action happened, and the one action for
+this week. Saved under `~/.qblab/briefs/`.
+
 ## Repo structure
 
 ```
@@ -146,10 +175,22 @@ skills/
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/           # entry shape, intake questions
-│   └── linkedin-post/
+│   ├── linkedin-post/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # post patterns
+│   ├── outreach/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # message sequence, pipeline columns
+│   ├── client-followup/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # clients template, message templates
+│   └── growth-brief/
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
-│       └── references/           # post patterns
+│       └── references/           # site events, brief template
 └── productivity/
     ├── roast-my-plan/
     │   ├── SKILL.md

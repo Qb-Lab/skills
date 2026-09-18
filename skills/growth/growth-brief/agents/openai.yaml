@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth Brief"
+  short_description: "Weekly one-page growth brief for QBLab"
+  default_prompt: "Use $growth-brief for this week's brief."
+
+policy:
+  allow_implicit_invocation: false
