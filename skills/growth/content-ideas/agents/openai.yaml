@@ -1,0 +1,7 @@
+interface:
+  display_name: "Content Ideas"
+  short_description: "Generate ranked, non-repeating content ideas by purpose"
+  default_prompt: "Use $content-ideas to generate ten content ideas for this project's current objective."
+
+policy:
+  allow_implicit_invocation: false

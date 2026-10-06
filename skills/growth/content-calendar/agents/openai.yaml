@@ -1,0 +1,7 @@
+interface:
+  display_name: "Content Calendar"
+  short_description: "Plan 7, 14 or 30 days of platform-native content"
+  default_prompt: "Use $content-calendar to plan the next 7 days of content for this project."
+
+policy:
+  allow_implicit_invocation: false

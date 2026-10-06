@@ -1,0 +1,7 @@
+interface:
+  display_name: "Launch Campaign"
+  short_description: "Plan a launch from T-14 to T+14 with assets"
+  default_prompt: "Use $launch-campaign to plan the launch campaign for this release."
+
+policy:
+  allow_implicit_invocation: false

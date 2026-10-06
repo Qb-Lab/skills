@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth Experiment"
+  short_description: "Design, rank and close growth experiments"
+  default_prompt: "Use $growth-experiment to turn this idea into a measurable experiment."
+
+policy:
+  allow_implicit_invocation: false

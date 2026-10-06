@@ -1,0 +1,7 @@
+interface:
+  display_name: "Human Content Writer"
+  short_description: "Write platform-native copy that sounds like a person"
+  default_prompt: "Use $human-content-writer to draft this post for the platform it is planned for."
+
+policy:
+  allow_implicit_invocation: false

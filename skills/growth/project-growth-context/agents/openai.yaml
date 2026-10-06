@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Growth Context"
+  short_description: "Build or load a project's growth context and state"
+  default_prompt: "Use $project-growth-context to build the growth context for this project."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Creative Director"
+  short_description: "Brief and produce visuals that do not look generated"
+  default_prompt: "Use $creative-director to write the creative brief for this post."
+
+policy:
+  allow_implicit_invocation: false

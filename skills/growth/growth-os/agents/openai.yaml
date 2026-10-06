@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth OS"
+  short_description: "Plan and run growth for any project"
+  default_prompt: "Use $growth-os to grow this product and tell me what to do this week."
+
+policy:
+  allow_implicit_invocation: false

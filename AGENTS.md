@@ -36,7 +36,8 @@ Use these broad capability categories:
 - `design` — UI/UX, design systems, accessibility, and design-tool workflows
 - `productivity` — research, writing, planning, communication, and general agent workflows
 - `growth` — running the agency: positioning, sales, marketing, content, and client-facing
-  workflows (briefs, proposals, outreach, posts, SEO)
+  workflows (briefs, proposals, outreach, posts, SEO); and the Growth OS, which markets any
+  project (strategy, research, content, creative, experiments, analytics)
 
 Create a category directory when its first skill lands; don't add empty directories. Avoid
 narrower stack-based categories such as `frontend` or `backend`.
@@ -63,8 +64,36 @@ overlay when it exists and mark the gap as `INPUT_NEEDED: <what>` when it does n
 never guess a price or a client name. Lead briefs and proposals are saved under `~/.qblab/`
 as well, never in a repository.
 
-New growth skills follow the same shape: load `qblab-context`, read the overlay, produce a
-draft or a report, never send, post, or contact anyone.
+New QBLab growth skills follow the same shape: load `qblab-context`, read the overlay,
+produce a draft or a report, never send, post, or contact anyone.
+
+## The Growth OS (growth skills for any project)
+
+The second family of growth skills markets **any** product, not QBLab: `growth-os`
+orchestrates, and focused skills own strategy, audience, market radar, community, content
+ideas, calendar, copy, creative, video, launches, experiments, analytics and reviews. They
+must never assume QBLab's facts, market, time zone or call to action.
+
+- Every Growth OS skill starts by loading `project-growth-context`, the generic counterpart
+  of `qblab-context`. It builds a context file from repository evidence, resolves the
+  project's state directory, and holds the references more than one skill needs (state
+  layout, project types, platform playbook, quality bar, hooks, languages, capabilities).
+  Shared guidance goes there once; do not copy it into individual skills.
+- State is private and per project: `~/.qblab/growth/<project-id>/` by default, or
+  `<repo>/.growth/` when the owner created that directory. File names and schemas are fixed
+  in `skills/growth/project-growth-context/references/state.md`; a skill that adds a state
+  file adds it to that table. This repository holds templates and schemas only, never a
+  project's marketing data.
+- `<state>/learnings.md` is the learning loop: experiment, analyst and review skills write
+  it, every planning skill reads it before proposing anything.
+- `growth-os` coordinates and must stay thin. A new capability is a focused skill (or a
+  reference in an existing one) that `growth-os` routes to, not a new section in `growth-os`.
+- Capabilities are detected, never assumed: web research, image or video generation,
+  analytics, scheduling and second models (`codex` included) are used when the host exposes
+  them and replaced by a handoff when it does not. No skill names a provider or model.
+- When a project's context says `Extends: qblab-context`, the Growth OS defers to the QBLab
+  skills for the jobs they already own (`linkedin-post`, `blog-post`, `outreach`,
+  `seo-audit`, `growth-brief`). Keep both families working when changing either.
 
 ## Authoring a skill
 
