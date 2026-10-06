@@ -1,0 +1,7 @@
+interface:
+  display_name: "Market Radar"
+  short_description: "Find this week's evidenced market opportunities"
+  default_prompt: "Use $market-radar to find opportunities for this project this week."
+
+policy:
+  allow_implicit_invocation: false

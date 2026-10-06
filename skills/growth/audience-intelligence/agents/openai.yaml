@@ -1,0 +1,7 @@
+interface:
+  display_name: "Audience Intelligence"
+  short_description: "Find who cares about the product, from evidence"
+  default_prompt: "Use $audience-intelligence to research who this product is really for."
+
+policy:
+  allow_implicit_invocation: false

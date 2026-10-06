@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth Analyst"
+  short_description: "Turn growth numbers into stop, continue, scale"
+  default_prompt: "Use $growth-analyst to analyse last week's growth numbers and tell me what to change."
+
+policy:
+  allow_implicit_invocation: false

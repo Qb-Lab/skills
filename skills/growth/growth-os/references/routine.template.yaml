@@ -1,0 +1,79 @@
+# Growth routine for one project. Saved as <state>/routine.yaml.
+#
+# This file is a definition, not a scheduler. An entry runs by itself only when its
+# status is `scheduled` and `scheduler` names what runs it.
+#
+# status:
+#   recommended         suggested cadence; a person triggers it
+#   requires-scheduler  ready to automate; waiting for the owner to connect a scheduler
+#   scheduled           a real scheduler is configured (named in `scheduler`)
+#   paused              kept for later; nothing runs
+#
+# `cron` is the standard five-field expression in the routine's time zone. Schedulers
+# that run in UTC (most CI systems) need the expression converted.
+
+project: <project-id>
+project_path: <absolute path to the project, or null when there is no repository>
+timezone: <IANA time zone, e.g. Europe/London; INPUT_NEEDED if unknown>
+updated: <YYYY-MM-DD>
+
+entries:
+  - id: daily-radar
+    name: Trend and community radar
+    cadence: weekdays, morning
+    cron: "30 8 * * 1-5"
+    prompt: "Use growth-os daily"
+    follows: [market-radar, community-growth]
+    output: [radar/YYYY-MM-DD.md, community/YYYY-MM-DD.md]
+    needs: [live web research]
+    status: recommended
+    scheduler: none
+    configured_on: null
+
+  - id: weekly-plan
+    name: Weekly growth plan
+    cadence: Monday morning
+    cron: "0 9 * * 1"
+    prompt: "Use growth-os weekly"
+    follows: [growth-review, growth-analyst, market-radar, growth-experiment, content-ideas, content-calendar]
+    output: [plans/YYYY-Www.md]
+    needs: [live web research, analytics access or exports (optional)]
+    status: recommended
+    scheduler: none
+    configured_on: null
+
+  - id: midweek-check
+    name: Midweek check
+    cadence: Wednesday
+    cron: "0 13 * * 3"
+    prompt: "Use growth-os midweek"
+    follows: [growth-review]
+    output: [printed only]
+    needs: [content results so far (optional)]
+    status: recommended
+    scheduler: none
+    configured_on: null
+
+  - id: weekly-review
+    name: Weekly growth review
+    cadence: Friday afternoon
+    cron: "0 16 * * 5"
+    prompt: "Use growth-os review"
+    follows: [growth-review, growth-analyst]
+    output: [reviews/YYYY-Www.md, learnings.md]
+    needs: [what was published this week, results where available]
+    status: recommended
+    scheduler: none
+    configured_on: null
+
+  - id: monthly-strategy
+    name: Growth strategy review
+    cadence: first Monday of the month
+    cron: "0 10 1-7 * 1"   # many crons treat day-of-month and day-of-week as OR; see scheduler-handoff.md
+    prompt: "Use growth-os monthly"
+    follows: [growth-review, growth-strategist]
+    output: [reviews/YYYY-MM.md, strategy.md]
+    needs: [a month of reviews and learnings]
+    status: recommended
+    scheduler: none
+    configured_on: null

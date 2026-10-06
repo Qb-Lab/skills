@@ -1,0 +1,7 @@
+interface:
+  display_name: "Short Video Director"
+  short_description: "Script shootable TikTok, Reels and Shorts videos"
+  default_prompt: "Use $short-video-director to script a short video for this feature."
+
+policy:
+  allow_implicit_invocation: false

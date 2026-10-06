@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth Review"
+  short_description: "Weekly, midweek and monthly growth retrospectives"
+  default_prompt: "Use $growth-review to review this week's growth work and set next week's objective."
+
+policy:
+  allow_implicit_invocation: false

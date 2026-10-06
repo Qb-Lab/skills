@@ -1,0 +1,7 @@
+interface:
+  display_name: "Community Growth"
+  short_description: "Map communities and find conversations worth joining"
+  default_prompt: "Use $community-growth to find conversations worth joining today."
+
+policy:
+  allow_implicit_invocation: false
