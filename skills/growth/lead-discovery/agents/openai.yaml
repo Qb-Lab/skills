@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lead Discovery"
+  short_description: "Find and dedupe companies that match an ICP"
+  default_prompt: "Use $lead-discovery to find new companies for the active campaign."
+
+policy:
+  allow_implicit_invocation: false

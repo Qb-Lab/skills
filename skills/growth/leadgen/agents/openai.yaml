@@ -1,0 +1,7 @@
+interface:
+  display_name: "Leadgen"
+  short_description: "Run the approval-gated lead generation pipeline"
+  default_prompt: "Use $leadgen status to show what is waiting for my review."
+
+policy:
+  allow_implicit_invocation: false

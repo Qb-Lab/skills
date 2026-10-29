@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sales Intelligence"
+  short_description: "Daily summary and weekly sales review"
+  default_prompt: "Use $sales-intelligence weekly for this week's review."
+
+policy:
+  allow_implicit_invocation: false

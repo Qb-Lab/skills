@@ -1,0 +1,7 @@
+interface:
+  display_name: "Follow-up Manager"
+  short_description: "Replies, opt-outs and due follow-up drafts"
+  default_prompt: "Use $follow-up-manager to check replies and draft due follow-ups."
+
+policy:
+  allow_implicit_invocation: false

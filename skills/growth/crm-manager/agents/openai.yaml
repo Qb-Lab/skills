@@ -1,0 +1,7 @@
+interface:
+  display_name: "CRM Manager"
+  short_description: "Idempotent CRM sync, tasks, statuses and opt-outs"
+  default_prompt: "Use $crm-manager to sync today's leads to the CRM."
+
+policy:
+  allow_implicit_invocation: false

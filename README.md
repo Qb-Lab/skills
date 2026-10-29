@@ -44,6 +44,15 @@ home directory instead. `npx skills update` pulls the latest versions.
 | [growth-brief](./skills/growth/growth-brief/SKILL.md) | Growth | Weekly one-page brief: site funnel, pipeline, activity, stale items, and the single action for the week. | Claude Code/Cursor: `/growth-brief`; Codex: `$growth-brief` |
 | [seo-audit](./skills/growth/seo-audit/SKILL.md) | Growth | Checks the site's SEO plumbing, performance budget, and copy against the searches founders make; ranked fix list and page ideas. | Claude Code/Cursor: `/seo-audit`; Codex: `$seo-audit` |
 | [blog-post](./skills/growth/blog-post/SKILL.md) | Growth | Writes a qblab.co blog post as MDX the site renders, anchored in real work, from an audit idea or a topic. | Claude Code/Cursor: `/blog-post`; Codex: `$blog-post` |
+| [leadgen](./skills/growth/leadgen/SKILL.md) | Growth | Router for the approval-gated lead pipeline: setup, discover, research, qualify, outreach, follow-ups, reports, status. Never sends. | Claude Code/Cursor: `/leadgen <command>`; Codex: `$leadgen` |
+| [lead-discovery](./skills/growth/lead-discovery/SKILL.md) | Growth | Companies matching a configured ICP from a prospecting tool, the web or a CSV, deduplicated against the CRM, with sources. | Claude Code/Cursor: `/lead-discovery`; Codex: `$lead-discovery` |
+| [lead-research](./skills/growth/lead-research/SKILL.md) | Growth | Public-source research per company: facts, hypotheses and unknowns kept apart, buying signals, one scoped pilot. | Claude Code/Cursor: `/lead-research`; Codex: `$lead-research` |
+| [lead-scoring](./skills/growth/lead-scoring/SKILL.md) | Growth | Deterministic 0–100 score from evidence-backed signals, with confidence and a justification per criterion. | Claude Code/Cursor: `/lead-scoring`; Codex: `$lead-scoring` |
+| [outreach-personalization](./skills/growth/outreach-personalization/SKILL.md) | Growth | Evidence-checked cold emails, LinkedIn notes and follow-ups, linted and saved unsent for review. | Claude Code/Cursor: `/outreach-personalization`; Codex: `$outreach-personalization` |
+| [crm-manager](./skills/growth/crm-manager/SKILL.md) | Growth | Idempotent CRM sync by stable keys: statuses, notes, tasks, outreach dates, deals, opt-outs. | Claude Code/Cursor: `/crm-manager`; Codex: `$crm-manager` |
+| [follow-up-manager](./skills/growth/follow-up-manager/SKILL.md) | Growth | Reconciles sends, replies, bounces and opt-outs, stops sequences, drafts follow-ups that are due. | Claude Code/Cursor: `/follow-up-manager`; Codex: `$follow-up-manager` |
+| [sales-intelligence](./skills/growth/sales-intelligence/SKILL.md) | Growth | Daily summary and weekly review from CRM records: funnel, rates with sample sizes, variants, objections, next week's plan. | Claude Code/Cursor: `/sales-intelligence`; Codex: `$sales-intelligence` |
+| [growth-content](./skills/growth/growth-content/SKILL.md) | Growth | Two or three LinkedIn post drafts a week from patterns in prospect research; hypotheticals labelled. | Claude Code/Cursor: `/growth-content`; Codex: `$growth-content` |
 | [project-growth-context](./skills/growth/project-growth-context/SKILL.md) | Growth | Builds or loads any project's growth context from repository evidence, resolves its private state directory, and holds the shared playbooks the Growth OS skills use. | Loads automatically for growth work on a project; Codex: `$project-growth-context` |
 | [growth-os](./skills/growth/growth-os/SKILL.md) | Growth | Orchestrator: judges stage and objective, routes to the focused skills, returns the week's plan, the next action and a recurring routine. | Claude Code/Cursor: `/growth-os`; Codex: `$growth-os` |
 | [growth-strategist](./skills/growth/growth-strategist/SKILL.md) | Growth | One objective, positioning, ranked channels with a "not now" list, the first growth loop, 30/60/90 and ranked experiments. | Claude Code/Cursor: `/growth-strategist`; Codex: `$growth-strategist` |
@@ -182,6 +191,40 @@ words in QBLab's voice with the answer in the first paragraph, and saves an MDX 
 exact frontmatter the blog route reads. Inside the site repo it writes to `content/blog/` and
 runs the build; it never flips the blog gate.
 
+## Lead generation
+
+A pipeline for finding and winning B2B clients that a person approves at every outgoing
+step. It runs from a private **workspace** (configuration, a small deterministic engine,
+and the operation's data), not from this catalog: the skills hold the method, the
+workspace holds the decisions and the records.
+
+```text
+lead-discovery → lead-research → lead-scoring → crm-manager
+                                      ↓
+              outreach-personalization → review queue → you send
+                                      ↓
+     follow-up-manager (replies, opt-outs, due follow-ups) → crm-manager
+                                      ↓
+            sales-intelligence (daily, weekly) → growth-content
+```
+
+- **Nothing is sent.** Email drafts are saved unsent in your mail tool; LinkedIn text sits in
+  the review queue. An approval is tied to one draft version, its content hash and its
+  recipient.
+- **Evidence or nothing.** Research keeps facts, hypotheses and unknowns apart; a draft whose
+  claims do not trace to a fact fails lint.
+- **The engine does the exact parts.** Dedupe, scoring arithmetic, suppression, word limits
+  and banned phrases, follow-up timing on business days, idempotent CRM plans and report
+  numbers come from a CLI in the workspace (`node src/cli.ts`, Node 22, no dependencies), so
+  the same input always gives the same result.
+- **The CRM is the source of truth** for status (HubSpot by default, through your agent's
+  connector or a private app token).
+- **Reusable.** Agency, campaigns, ICP, scoring weights, offers, tone, limits, schedules and
+  integrations are configuration; nothing industry-specific lives in the skills.
+
+`outreach` remains the quick, file-based way to draft a sequence for a handful of targets;
+`outreach-personalization` is the CRM-backed, linted version the pipeline uses.
+
 ## Universal Growth OS
 
 The QBLab growth skills above are for running the agency. The Growth OS is for marketing
@@ -301,6 +344,18 @@ skills/
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/           # post shape
+│   ├── leadgen/                  # lead pipeline router
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # rules, workspace and engine, data contracts, setup, CRM
+│   ├── outreach-personalization/
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/           # message patterns
+│   ├── <lead-discovery, lead-research, lead-scoring, crm-manager, follow-up-manager,
+│   │    sales-intelligence, growth-content>/
+│   │   ├── SKILL.md
+│   │   └── agents/openai.yaml
 │   ├── project-growth-context/   # Growth OS foundation
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
