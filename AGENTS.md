@@ -95,6 +95,18 @@ must never assume QBLab's facts, market, time zone or call to action.
   skills for the jobs they already own (`linkedin-post`, `blog-post`, `outreach`,
   `seo-audit`, `growth-brief`). Keep both families working when changing either.
 
+## Lead generation skills
+
+`leadgen` routes to `lead-discovery`, `lead-research`, `lead-scoring`,
+`outreach-personalization`, `crm-manager`, `follow-up-manager`, `sales-intelligence` and
+`growth-content`. They run against a private workspace (configuration, engine, data) found
+through `LEADGEN_HOME` or the current directory, never against this repository. Shared
+rules live once in `skills/growth/leadgen/references/`; focused skills read them first and
+do not restate them. Configuration decides the agency, industry and market: no skill in
+this family hard-codes a sector, a country or QBLab's messaging (they load `qblab-context`
+only when the workspace's agency id is `qblab`). Every skill in the family drafts and
+reports; none sends, posts or contacts anyone.
+
 ## Authoring a skill
 
 Scaffold with `npx skills init <name>`, then move it under the right category.

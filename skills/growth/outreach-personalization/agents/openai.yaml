@@ -1,0 +1,7 @@
+interface:
+  display_name: "Outreach Personalization"
+  short_description: "Draft and lint outreach for review, never send"
+  default_prompt: "Use $outreach-personalization to prepare drafts for the top qualified leads."
+
+policy:
+  allow_implicit_invocation: false

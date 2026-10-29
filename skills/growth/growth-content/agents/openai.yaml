@@ -1,0 +1,7 @@
+interface:
+  display_name: "Growth Content"
+  short_description: "Weekly LinkedIn ideas from prospect research"
+  default_prompt: "Use $growth-content to plan this week's posts from research."
+
+policy:
+  allow_implicit_invocation: false

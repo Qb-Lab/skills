@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lead Research"
+  short_description: "Evidence-backed research and one pilot per company"
+  default_prompt: "Use $lead-research on the leads waiting for research."
+
+policy:
+  allow_implicit_invocation: false
